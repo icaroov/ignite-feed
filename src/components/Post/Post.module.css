@@ -112,6 +112,15 @@
   background: var(--green-300);
 }
 
+.commentForm button[type='submit']:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.commentForm button[type='submit']:disabled:hover {
+  background: var(--green-500);
+}
+
 .tags > a {
   margin-right: 0.5rem;
 }

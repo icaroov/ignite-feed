@@ -1,10 +1,16 @@
-import { ThumbsUp, Trash } from 'phosphor-react';
+import { ThumbsUp, Trash } from 'phosphor-react'
 
-import { Avatar } from '../Avatar/Avatar';
+import { Avatar } from '../Avatar/Avatar'
 
-import styles from './Comment.module.css';
+import styles from './Comment.module.css'
 
-export function Comment() {
+export type CommentType = {
+  id: number
+  createdAt: Date
+  content: string
+}
+
+export function Comment({ content }: CommentType) {
   return (
     <div className={styles.comment}>
       <Avatar src='https://github.com/icaroov.png' hasBorder={false} />
@@ -14,15 +20,17 @@ export function Comment() {
           <header>
             <div className={styles.authorAndTime}>
               <strong>Icaro Oliveira</strong>
-              <time title="11 de Maio às 08:13h" dateTime="2022-05-11 08:13:00">Cerca de 1h atrás</time>
+              <time title='11 de Maio às 08:13h' dateTime='2022-05-11 08:13:00'>
+                Cerca de 1h atrás
+              </time>
             </div>
 
-            <button title="Deletar comentário">
+            <button title='Deletar comentário'>
               <Trash size={20} />
             </button>
           </header>
 
-          <p>Muito bom cara, parabéns!! 👏👏</p>
+          <p>{content}</p>
         </div>
 
         <footer>
