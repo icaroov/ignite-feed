@@ -10,7 +10,12 @@ export type CommentType = {
   content: string
 }
 
-export function Comment({ content }: CommentType) {
+type CommentProps = {
+  comment: CommentType
+  onDelete: (id: number) => void
+}
+
+export function Comment({ comment, onDelete }: CommentProps) {
   return (
     <div className={styles.comment}>
       <Avatar src='https://github.com/icaroov.png' hasBorder={false} />
@@ -25,12 +30,12 @@ export function Comment({ content }: CommentType) {
               </time>
             </div>
 
-            <button title='Deletar comentário'>
+            <button title='Deletar comentário' onClick={() => onDelete(comment.id)}>
               <Trash size={20} />
             </button>
           </header>
 
-          <p>{content}</p>
+          <p>{comment.content}</p>
         </div>
 
         <footer>

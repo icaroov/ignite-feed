@@ -30,6 +30,8 @@ export type PostProps = {
   publishedAt: Date
 }
 
+const MAX_COMMENT_LENGTH = 160
+
 export function Post({ author, content, publishedAt }: PostProps) {
   const [commentsList, setCommentsList] = useState<CommentType[]>([])
   const [comment, setComment] = useState('')
@@ -44,6 +46,8 @@ export function Post({ author, content, publishedAt }: PostProps) {
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length > MAX_COMMENT_LENGTH) return
+
     setComment(e.target.value)
   }
 
@@ -63,6 +67,10 @@ export function Post({ author, content, publishedAt }: PostProps) {
     })
 
     setComment('')
+  }
+
+  const handleDeleteComment = (id: number) => {
+    setCommentsList((prev) => prev.filter((comment) => comment.id !== id))
   }
 
   return (
@@ -100,7 +108,14 @@ export function Post({ author, content, publishedAt }: PostProps) {
       })}
 
       <form onSubmit={handleSubmit} className={styles.commentForm}>
-        <strong>Deixe seu feedback</strong>
+        <div className={styles.labelContainer}>
+          <strong>Deixe seu feedback</strong>
+          {comment.length >= MAX_COMMENT_LENGTH ? (
+            <span className={styles.error}>{`Limite de ${MAX_COMMENT_LENGTH} caracteres atingido`}</span>
+          ) : (
+            <span>{`${comment.length}/${MAX_COMMENT_LENGTH}`}</span>
+          )}
+        </div>
 
         <textarea name='comment' value={comment} placeholder='Deixe um comentário' onChange={handleChange} />
 
@@ -113,7 +128,7 @@ export function Post({ author, content, publishedAt }: PostProps) {
 
       <div className='commentList'>
         {commentsList.map((comment) => (
-          <Comment key={comment.id} {...comment} />
+          <Comment key={comment.id} comment={comment} onDelete={handleDeleteComment} />
         ))}
       </div>
     </article>
