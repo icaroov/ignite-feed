@@ -4,6 +4,15 @@
   padding: 2.5rem;
 }
 
+.post a {
+  color: var(--green-500);
+  text-decoration: none;
+}
+
+.post a:hover {
+  text-decoration: underline;
+}
+
 .post + .post {
   margin-top: 2rem;
 }
@@ -43,6 +52,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .authorInfo strong {

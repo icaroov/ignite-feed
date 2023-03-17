@@ -45,12 +45,6 @@ export function Post({ author, content, publishedAt }: PostProps) {
     addSuffix: true,
   })
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length > MAX_COMMENT_LENGTH) return
-
-    setComment(e.target.value)
-  }
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -67,6 +61,12 @@ export function Post({ author, content, publishedAt }: PostProps) {
     })
 
     setComment('')
+  }
+
+  const handleChangeComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length > MAX_COMMENT_LENGTH) return
+
+    setComment(e.target.value)
   }
 
   const handleDeleteComment = (id: number) => {
@@ -117,7 +117,13 @@ export function Post({ author, content, publishedAt }: PostProps) {
           )}
         </div>
 
-        <textarea name='comment' value={comment} placeholder='Deixe um comentário' onChange={handleChange} />
+        <textarea
+          name='comment'
+          value={comment}
+          placeholder='Deixe um comentário'
+          onChange={handleChangeComment}
+          required
+        />
 
         <footer>
           <button type='submit' disabled={!comment}>
